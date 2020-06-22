@@ -26,6 +26,7 @@ def condenseData():
     condenseDf = df[["NA_Sales", "EU_Sales"]]
     condenseDf.apply(pd.to_numeric)
     condenseDf = condenseDf.astype(float)
+    condenseDf = condenseDf.sample(frac=1)
     condenseDf.to_pickle("condenseSales.pkl")
     print(condenseDf)
 
