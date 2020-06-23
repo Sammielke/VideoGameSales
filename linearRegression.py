@@ -24,7 +24,8 @@ class LinearRegressionModel:
     """
     def initParams(self):
         self.thetaZero = random.random()
-        self.thetaOne = random.random()
+        self.thetaZero = self.thetaZero if random.random() < 0.5 else -self.thetaZero
+        self.thetaOne = self.thetaOne if random.random() < 0.5 else -self.thetaOne
 
 
 
@@ -69,6 +70,7 @@ class LinearRegressionModel:
         x = np.array(range(-1, 50))
         y = eval(str(self.thetaZero) + "+" + str(self.thetaOne) + "*x")
         plt.plot(x, y)
+        plt.scatter(self.trainingX, self.trainingY)
         plt.show()
     
 
@@ -105,6 +107,7 @@ class LinearRegressionModel:
 
         # set up parameters necessary for linear regression
         self.initParams()
+        print("INITIAL VALUES OF THETA: ", self.thetaZero, self.thetaOne)
         go = True
 
         iterations = 0
@@ -124,7 +127,7 @@ class LinearRegressionModel:
             self.thetaOne = oldThetaOne - (learningRate * dThetaOne)
 
             # see if continuation is needed
-            if abs(self.thetaZero - oldThetaZero) < 0.00001 and abs(self.thetaOne - oldThetaOne) < 0.00001:
+            if abs(self.thetaZero - oldThetaZero) < 0.000000001 and abs(self.thetaOne - oldThetaOne) < 0.000000001:
                 go = False
             else:
                 oldThetaZero = self.thetaZero
