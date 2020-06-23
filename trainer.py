@@ -15,7 +15,13 @@ def splitData():
     return (trainingX, trainingY, testingX, testingY)
 
 
+
 if __name__ == "__main__":
     trainingX, trainingY, testingX, testingY = splitData()
     model = linearRegression.LinearRegressionModel(trainingX, trainingY, testingX, testingY)
     model.fit(0.05)
+    trainingError = model.calculateError(trainingX, trainingY)
+    testingError = model.calculateError(testingX, testingY)
+    print("TRAINING ERROR: ", trainingError)
+    print("TESTING ERROR: ", testingError)
+

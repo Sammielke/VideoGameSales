@@ -70,6 +70,30 @@ class LinearRegressionModel:
         y = eval(str(self.thetaZero) + "+" + str(self.thetaOne) + "*x")
         plt.plot(x, y)
         plt.show()
+    
+
+
+    """
+        Calculate the accuracy with given input and output
+    """
+    def calculateError(self, inputs, outputs):
+        # set up the necessary variables for calculating the error
+        m = len(inputs)
+        s = 0
+
+        # find the sum of squared error
+        for i in range(m):
+            # get the values needed to calculate error
+            x = inputs[i]
+            realY = outputs[i]
+            predY = self.thetaZero + (self.thetaOne * x)
+
+            # find and add the difference
+            s = s + (realY - predY)**2
+        
+        error = s/m
+        print(error)
+        return error
 
         
 
@@ -83,12 +107,13 @@ class LinearRegressionModel:
         self.initParams()
         go = True
 
+        iterations = 0
+
         # repeating until convergence
         while go == True:
             
             # find values of derivatives
             dThetaZero, dThetaOne = self.findDerivative()
-            print(dThetaZero, dThetaOne)
 
             # keep track of the old values of theta
             oldThetaZero = self.thetaZero
@@ -104,12 +129,11 @@ class LinearRegressionModel:
             else:
                 oldThetaZero = self.thetaZero
                 oldThetaOne = self.thetaOne
+            
+            iterations += 1
 
+        print("ITERATIONS COMPLETED: ", iterations)
         print("FINAL VALUES OF THETA: ", self.thetaZero, self.thetaOne)
         self.graphLine()
         
             
-
-
-
-    
